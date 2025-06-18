@@ -12,7 +12,7 @@ class ClaudeNetHackInterface:
     def __init__(self):
         self.wrapper = NetHackWrapper()
         self.game_active = False
-    
+
     def start_session(self):
         """Start NetHack session"""
         if self.wrapper.start_game():
@@ -21,24 +21,24 @@ class ClaudeNetHackInterface:
             print("Game ready for Claude's strategic decisions")
             return True
         return False
-    
-    def send_move(self, command):
+
+    def send_command(self, command):
         """Send a single command to NetHack"""
         if not self.game_active:
             print("Game not active!")
             return
-        
+
         print(f"Sending command: {command}")
         self.wrapper.send_command(command)
         time.sleep(0.5)
-    
+
     def view_state(self):
         """View current game state"""
         screen = self.wrapper.capture_screen()
         print("=== CURRENT GAME STATE ===")
         print(screen)
         return screen
-    
+
     def save_and_exit(self):
         """Save progress and close game"""
         print("Saving progress...")
@@ -58,6 +58,6 @@ def start_game():
 if __name__ == "__main__":
     print("NetHack Interface for Claude")
     print("Use: interface = start_game()")
-    print("Then: interface.send_move('command')")
+    print("Then: interface.send_command('command')")
     print("View: interface.view_state()")
     print("Save: interface.save_and_exit()")

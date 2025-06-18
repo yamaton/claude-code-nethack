@@ -72,7 +72,7 @@ Claude uses a simple interface with these key methods:
 | Command | Purpose |
 |---------|---------|
 | `interface.view_state()` | Display current game screen |
-| `interface.send_move('command')` | Send a command to NetHack |
+| `interface.send_command('command')` | Send a command to NetHack |
 | `interface.save_and_exit()` | Save progress and close game |
 
 ### Game Status Elements
