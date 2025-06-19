@@ -21,14 +21,14 @@ NetHack is a classic roguelike dungeon crawler that requires strategic thinking,
   - Supports session cleanup and initialization
 
 ### Documentation
-- **`nethack_strategy.md`** - Comprehensive strategy scrapbook
+- **`NETHACK_SCRAPBOOK.md`** - Comprehensive strategy scrapbook
   - Mission objectives and progress tracking
   - Detailed exploration logs with move-by-move analysis
   - Combat encounters and tactical lessons learned
   - Map discoveries and dungeon layout documentation
   - Character development and class optimization notes
 
-- **`gameplay_guide.md`** - User interface reference
+- **`MONITORING_GUIDE.md`** - User interface reference
   - Command syntax and usage examples
   - Game element identification guide
   - Session monitoring and management instructions
@@ -76,7 +76,7 @@ Continue playing NetHack. Check documents in this project, then proceed with the
 ### Getting Started
 1. **Initialize game**: `./run --init` to start fresh session
 2. **Check current state**: `./run` (no arguments) to see game screen
-3. **Review strategy**: Read `nethack_strategy.md` for current mission status and learned tactics
+3. **Review strategy**: Read `NETHACK_SCRAPBOOK.md` for current mission status and learned tactics
 4. **Basic movement**: Use `./run h j k l` for west/south/north/east movement
 5. **Door interaction**: Use `./run o` + direction to open doors (`+` symbols)
 6. **Search areas**: Use `./run s` to find hidden doors/passages

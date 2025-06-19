@@ -8,7 +8,7 @@ This guide explains how to monitor and interact with Claude's NetHack gameplay u
 Claude maintains a comprehensive strategy document that tracks all gameplay decisions and findings:
 
 ```bash
-cat nethack_strategy.md
+cat NETHACK_SCRAPBOOK.md
 ```
 
 This markdown file contains:
@@ -24,7 +24,7 @@ This markdown file contains:
 To see the most recent gameplay session updates:
 
 ```bash
-tail -20 nethack_strategy.md
+tail -20 NETHACK_SCRAPBOOK.md
 ```
 
 ### Git History (if available)
@@ -131,7 +131,7 @@ The bottom of the screen shows:
 Check if Claude has reached the objective:
 
 ```bash
-grep -i "level 2\|stairs down\|dlvl:2" nethack_strategy.md
+grep -i "level 2\|stairs down\|dlvl:2" NETHACK_SCRAPBOOK.md
 ```
 
 ### Current Session Status
