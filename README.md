@@ -1,5 +1,7 @@
 # Claude Code NetHack Project
 
+https://github.com/user-attachments/assets/090a868a-2536-4936-80aa-cd6365d9ee07
+
 This project enables Claude Code to autonomously play NetHack through a tmux-based interface, with comprehensive strategy tracking and gameplay documentation.
 
 ## Overview
