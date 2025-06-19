@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# --- Configuration ---
+SESSION_NAME="claude"
+NETHACK_COMMAND="nethack -u Claude -p valkyrie -r human"
+KEY_DELAY=0.1
+
+# --- Validate Input ---
+if [ $# -eq 0 ]; then
+    echo "Usage: $0 '<literal_keys>' [special_key] ..."
+    echo "For single keys: $0 j"
+    echo "For cancellation: $0 Escape"
+    echo "For multi-step commands, separate literal text and special keys as arguments:"
+    echo "Example: $0 '#kick' Enter"
+    exit 1
+fi
+
+# Add session cleanup option
+if [ "$1" = "--cleanup" ]; then
+    tmux kill-session -t "$SESSION_NAME" 2>/dev/null
+    exit 0
+fi
+
+# Add session cleanup option
+if [ "$1" = "--init" ]; then
+    tmux kill-session -t "$SESSION_NAME" 2>/dev/null
+fi
+
+# --- Session Management ---
+# Check if the tmux session exists. If not, create it and start NetHack.
+if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
+    echo "Creating new NetHack session: $SESSION_NAME"
+    tmux new-session -d -s "$SESSION_NAME" "$NETHACK_COMMAND"
+    sleep 1 # Give nethack time to load
+fi
+
+# --- Action and State Capture ---
+
+# Loop through each argument provided to the script.
+# This allows us to send them one by one with a delay in between.
+for arg in "$@"; do
+    # Send the current argument (e.g., 'd', then 'a').
+    tmux send-keys -t "$SESSION_NAME" -- "$arg"
+    # Wait for a short moment to let NetHack process the keystroke.
+    sleep "$KEY_DELAY"
+done
+
+# Wait a fraction of a second for the screen to update.
+sleep 0.2
+
+# Capture the pane's content and print it to stdout.
+tmux capture-pane -p -e -t "$SESSION_NAME"
