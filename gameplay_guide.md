@@ -138,7 +138,7 @@ grep -i "level 2\|stairs down\|dlvl:2" nethack_strategy.md
 View the active tmux session:
 
 ```bash
-tmux list-sessions | grep claude
+tmux list-sessions | grep claude-nethack
 ```
 
 ### Interactive Monitoring
