@@ -6,6 +6,38 @@ NETHACK_COMMAND="nethack -u Claude -p valkyrie -r human"
 KEY_DELAY=0.1
 
 
+# Show help information
+if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+    cat << 'EOF'
+NetHack tmux Interface - Claude Code NetHack Project
+
+USAGE:
+    ./run [COMMAND...]           Send commands to NetHack and view current state
+    ./run --init                 Start fresh game (kills existing session)
+    ./run --cleanup              Kill the tmux session completely
+    ./run --help                 Show this help
+
+EXAMPLES:
+    ./run                        View current game state
+    ./run h j k l                Move west, south, north, east
+    ./run o h                    Open door to the west
+    ./run s                      Search for hidden doors/passages
+    ./run ,                      Pick up items
+    ./run 5j                     Move south 5 times
+
+NETHACK SYMBOLS:
+    @    Claude's position       >    Stairs down (goal!)
+    f    Pet (Rex)              <    Stairs up
+    #    Corridors               +    Closed doors
+    $    Gold/treasure           %    Enemy corpses
+
+For more information, see README.md and NETHACK_SCRAPBOOK.md
+
+This tool is designed for Claude Code to autonomously play NetHack.
+EOF
+    exit 0
+fi
+
 # Add session cleanup option
 if [ "$1" = "--cleanup" ]; then
     tmux kill-session -t "$SESSION_NAME" 2>/dev/null
