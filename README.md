@@ -1,4 +1,4 @@
-# Claude Code NetHack Project
+# Claude Code Plays NetHack
 
 https://github.com/user-attachments/assets/090a868a-2536-4936-80aa-cd6365d9ee07
 
