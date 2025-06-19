@@ -5,15 +5,6 @@ SESSION_NAME="claude"
 NETHACK_COMMAND="nethack -u Claude -p valkyrie -r human"
 KEY_DELAY=0.1
 
-# --- Validate Input ---
-if [ $# -eq 0 ]; then
-    echo "Usage: $0 '<literal_keys>' [special_key] ..."
-    echo "For single keys: $0 j"
-    echo "For cancellation: $0 Escape"
-    echo "For multi-step commands, separate literal text and special keys as arguments:"
-    echo "Example: $0 '#kick' Enter"
-    exit 1
-fi
 
 # Add session cleanup option
 if [ "$1" = "--cleanup" ]; then
