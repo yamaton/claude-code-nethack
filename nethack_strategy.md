@@ -181,5 +181,46 @@ Starting Area:          Large Treasure Room:     Eastern Corridors:     Hidden N
 - `:` = Food items
 - `---------.------` = Wall with hidden opening (look for `.` in wall patterns!)
 
+## Session 5: MAJOR BREAKTHROUGH - Interface Improvements & Large Western Room Discovery
+
+### Advanced Navigation Techniques Learned
+- **Door Symbol Recognition**:
+  - `-` in walls = open door (horizontal)
+  - `|` in walls = open door (vertical)
+  - `+` = closed door (requires opening with `o` command)
+- **Wall Opening Pattern Analysis**:
+  - `-----.---` indicates opening is one step south-west from current position
+  - Must move diagonally to access wall openings (not just cardinal directions)
+  - Opening position corresponds to `.` symbol in wall pattern
+
+### Major Exploration Success
+- **Western Room Discovery**: Found and opened closed door `+` leading to large western room
+- **Systematic Corridor Mapping**: Successfully mapped complex interconnected corridor system
+- **Strategic Door Opening**: Used `o h` command to open western door, revealing major new area
+- **Room Access Method**: Proper positioning to enter rooms through doorways
+
+### Combat Experience with Valkyrie
+- **Newt Encounter**: Successfully handled newt combat (enemy was disguised as `:` food symbol)
+- **Pet Combat Assistance**: Slinky (pet dog) actively helps in combat and eats corpses
+- **Valkyrie Effectiveness**: Much better combat performance than Tourist class
+
+### Updated Navigation Commands
+- **Room Entry**: Position at exact door location before moving through
+- **Diagonal Movement**: Use `b` (south-west), `y` (north-west), etc. for diagonal access to wall openings
+- **Door Operations**: `o` + direction to open closed doors (`+`)
+- **Pet Coordination**: `swap places` messages indicate successful pet movement
+
+### Current Status: Ready for Stairs Discovery
+- **Location**: Inside large western room (prime location for stairs down)
+- **Mission Progress**: Systematically explored majority of dungeon level 1
+- **Next Step**: Search western room floor-by-floor for stairs down (`>`) to level 2
+- **Key Achievement**: Clean interface + advanced navigation = much more efficient exploration
+
+**Legend Updates:**
+- `+` = Closed doors (requires opening)
+- `-` and `|` = Open doors in walls
+- `####` = Complex corridor networks
+- `-----.---` = Wall with opening (move diagonally to `.` position)
+
 ---
-*Last Updated: After Hidden Passage Discovery & Combat Death*
+*Last Updated: After Interface Improvements & Western Room Discovery*
