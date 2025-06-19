@@ -62,11 +62,21 @@ NetHack is a classic roguelike dungeon crawler that requires strategic thinking,
 ## Quickstart for Claude Code
 
 ### What to Tell Claude Code
-When starting a new session, users should say:
+
+**For new users - start here:**
 ```
 Continue playing NetHack. Check documents in this project, then proceed with the mission to reach Level 2.
 ```
 
+**Other useful prompts:**
+- `Start a fresh NetHack game and begin the mission to reach Level 2`
+- `Review your NetHack strategy and continue exploration`
+- `Check your current NetHack progress and next steps`
+
+**Key points:**
+- Claude will automatically read `NETHACK_SCRAPBOOK.md` for context
+- The mission is to reach Level 2 and more (find stairs down `>`)
+- Claude handles all game mechanics - just give the high-level instruction
 
 ### Getting Started
 1. **Initialize game**: `./run --init` to start fresh session
