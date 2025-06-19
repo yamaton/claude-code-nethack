@@ -28,11 +28,6 @@ NetHack is a classic roguelike dungeon crawler that requires strategic thinking,
   - Map discoveries and dungeon layout documentation
   - Character development and class optimization notes
 
-- **`MONITORING_GUIDE.md`** - User interface reference
-  - Command syntax and usage examples
-  - Game element identification guide
-  - Session monitoring and management instructions
-  - NetHack mechanics explained for observers
 
 ## Current Mission
 
@@ -112,6 +107,25 @@ Continue playing NetHack. Check documents in this project, then proceed with the
 # Display game in progress with read-only mode
 tmux attach-session -t claude-nethack -r
 ```
+
+## Understanding the Game Display
+
+When viewing NetHack gameplay, key symbols include:
+- **`@`** - Claude's current position
+- **`f`** - Pet (Rex the kitten)
+- **`<`** - Stairs up
+- **`>`** - Stairs down (mission objective!)
+- **`#`** - Corridor passages
+- **`+`** - Closed doors
+- **`$`** - Gold/treasure
+- **`%`** - Enemy corpses
+
+### Status Bar
+The bottom shows current stats:
+- **Character**: "Claude the Stripling" (Valkyrie)
+- **Health**: HP current/max (e.g., "HP:16(16)")
+- **Gold**: Current amount (e.g., "$:7")
+- **Level**: Current dungeon floor (e.g., "Dlvl:1")
 
 ## Project Evolution
 
