@@ -62,7 +62,7 @@ From last observation:
 - **Turn 2**: Moved south anyway, swapped places with Rex
 - **Turn 3**: Waited to observe area
 - **Turn 4**: Explored west
-- **Turn 5**: Explored east  
+- **Turn 5**: Explored east
 - **Turn 6**: Searched for hidden doors
 - **Observation**: Currently in a small room, need to find alternative routes
 
@@ -95,26 +95,6 @@ From last observation:
 4. **Unfinished Areas**: Return to any incompletely explored sections
 5. **Strategic Patience**: This level is large - stairs down are somewhere to be found
 
-## Technical Notes
-- Using `claude_interface.py` approach for strategic decision-making
-- Game state captured via `capture_screen()` method
-- Commands sent via `send_command()` method
-- Save progress with 'S' command when appropriate
-- **New Character Creation**: Use Human Valkyrie instead of Tourist for better combat
-
-## Current Map Knowledge
-```
-Starting Area:          Large Treasure Room:     Eastern Corridors:     Northern Exploration:
------                   ---------                ### (explored)         (NEW AREA DISCOVERED!)
-|<...:                  |.......|                ###                    Various rooms and
-|...|                   |....$..|-##             ###                    corridors in new
-   .  #   |..%|         |.......|                ###@                   northern section
-   ####-...|            ---------                ###
-   # #-----                                      ###
-   #                                             ###
- ###                                             ###
-```
-
 **Legend:**
 - `@` = Current position (in northern corridor system)
 - `<` = Stairs up (start area)
@@ -128,7 +108,7 @@ Starting Area:          Large Treasure Room:     Eastern Corridors:     Northern
 Successfully reached NEW NORTHERN AREA via eastern corridor network! This is a major breakthrough - the dungeon extends much further north than initially mapped. Current position is in northern corridor system where stairs down (>) might be located.
 
 ### Session 4: MAJOR BREAKTHROUGH - Hidden Passage Discovery & Combat Death
-- **Critical Observation**: User spotted discontinuous north wall in treasure room (`---------.------`) 
+- **Critical Observation**: User spotted discontinuous north wall in treasure room (`---------.------`)
 - **Hidden Passage**: The `.` in the wall pattern indicated an opening I had completely missed!
 - **New Area Access**: Successfully accessed completely unexplored area beyond north wall
 - **Enemy Encounter**: Found active goblin (`o`) in new area - first new enemy type encountered
@@ -144,7 +124,7 @@ Successfully reached NEW NORTHERN AREA via eastern corridor network! This is a m
 - **Tourist Weapon System**: Tourist class uses weak "tin opener" as starting weapon (POOR CHOICE!)
 - **Valkyrie Advantage**: Human Valkyrie class has much better combat capabilities and weapons
 - **Attack Method**: Moving toward enemies initiates automatic melee combat
-- **Combat Messages**: 
+- **Combat Messages**:
   - "You begin bashing monsters with your tin opener" (Tourist only)
   - "You miss the goblin" (attacks can fail)
   - "The goblin hits!" (enemies counter-attack)
