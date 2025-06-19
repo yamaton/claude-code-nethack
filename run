@@ -39,5 +39,5 @@ done
 # Wait a fraction of a second for the screen to update.
 sleep 0.2
 
-# Capture the pane's content and print it to stdout.
-tmux capture-pane -p -e -t "$SESSION_NAME"
+# Capture the pane's content and print it to stdout (without ANSI escape sequences).
+tmux capture-pane -p -t "$SESSION_NAME"
