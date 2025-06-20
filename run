@@ -31,7 +31,7 @@ NETHACK SYMBOLS:
     #    Corridors               +    Closed doors
     $    Gold/treasure           %    Enemy corpses
 
-For more information, see README.md and NETHACK_SCRAPBOOK.md
+For more information, see README.md and CLAUDE.md
 
 This tool is designed for Claude Code to autonomously play NetHack.
 EOF

@@ -23,7 +23,7 @@ NetHack is a classic roguelike dungeon crawler that requires strategic thinking,
   - Supports session cleanup and initialization
 
 ### Documentation
-- **`NETHACK_SCRAPBOOK.md`** - Comprehensive strategy scrapbook
+- **`CLAUDE.md`** - Comprehensive strategy scrapbook
   - Mission objectives and progress tracking
   - Detailed exploration logs with move-by-move analysis
   - Combat encounters and tactical lessons learned
@@ -76,14 +76,14 @@ Continue playing NetHack. Check documents in this project, then proceed with the
 - `Check your current NetHack progress and next steps`
 
 **Key points:**
-- Claude will automatically read `NETHACK_SCRAPBOOK.md` for context
+- Claude will automatically read `CLAUDE.md` for context
 - The mission is to reach Level 2 and more (find stairs down `>`)
 - Claude handles all game mechanics - just give the high-level instruction
 
 ### Getting Started
 1. **Initialize game**: `./run --init` to start fresh session
 2. **Check current state**: `./run` (no arguments) to see game screen
-3. **Review strategy**: Read `NETHACK_SCRAPBOOK.md` for current mission status and learned tactics
+3. **Review strategy**: Read `CLAUDE.md` for current mission status and learned tactics
 4. **Basic movement**: Use `./run h j k l` for west/south/north/east movement
 5. **Door interaction**: Use `./run o` + direction to open doors (`+` symbols)
 6. **Search areas**: Use `./run s` to find hidden doors/passages
