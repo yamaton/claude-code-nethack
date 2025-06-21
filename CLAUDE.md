@@ -17,10 +17,10 @@ Reach Dungeon Level 2 and save progress
 - **Character**: Claude the Valkyrie (Human Valkyrie, Lawful)  
 - **Level**: Dungeon Level 1
 - **Health**: 16/16 HP (full health)
-- **Gold**: 7 pieces
+- **Gold**: 17 pieces (collected additional gold from new rooms)
 - **Pet**: Rex (kitten/cat)
 - **Equipment**: Scroll labeled ELAM EBOW
-- **Location**: Western corridor system, exploring for stairs down
+- **Location**: Eastern room, positioned against western wall
 
 ## Current Dungeon Layout (This Run Only)
 - **Starting Room**: Contains fountain (F) and stairs up (<)
@@ -71,6 +71,15 @@ Reach Dungeon Level 2 and save progress
 - **Door Operations**: Position at door before using `o` + direction
 - **Room Entry**: Must be at exact door location to enter rooms
 - **Diagonal Access**: Use diagonals for wall openings and corners
+- **Position Analysis**: CRITICAL - Always check exact adjacent symbols around `@` before planning moves
+
+### ASCII Position Analysis (IMPORTANT)
+- **Challenge**: Tendency to process visual patterns rather than precise adjacent characters
+- **Workaround**: 
+  1. Grid-based analysis: Identify exact `@` position, then check all 8 adjacent positions systematically (N, NE, E, SE, S, SW, W, NW)
+  2. Character-by-character verification: Read each adjacent symbol individually rather than inferring from area pattern
+  3. Movement validation: Verify target position contains passable symbol (`.`, `#`) vs wall (`|`, `-`)
+  4. Position-first mindset: Always start with "Where exactly am I?" and "What are the 8 symbols around me?"
 
 ## Combat System
 
@@ -92,6 +101,7 @@ Reach Dungeon Level 2 and save progress
 2. **Room-by-Room**: Check each room thoroughly for stairs down (>)
 3. **Corridor Mapping**: Follow all ### passages to completion
 4. **Hidden Features**: Use search command in promising locations
+5. **Protruding Passage Detection**: Look for single `#` symbols extending from explored areas - these indicate unexplored passages
 
 ### Critical Insight: Random Layouts
 - **Key Fact**: Each NetHack game generates completely different dungeon layouts
@@ -131,6 +141,18 @@ Reach Dungeon Level 2 and save progress
 - **Command Input**: Single character commands work best
 - **Error Handling**: Commands fail gracefully with informative messages
 
+### Grid Analysis Tool (NEW)
+- **Tool**: `./grid` command for precise position analysis
+- **Purpose**: Extracts 3x3 grid around player character to eliminate visual analysis errors
+- **Usage**: `./grid` (defaults to `@` character) or `./grid <char>` for other characters
+- **Output**: Shows exact characters in all 8 directions (NW, N, NE, W, E, SW, S, SE)
+- **Benefits**: 
+  - Eliminates human visual processing errors in ASCII analysis
+  - Clearly identifies passable vs impassable directions
+  - Provides systematic 8-direction position verification
+- **Implementation**: Python script `grid_extract.py` with bash wrapper `grid`
+- **Limitation**: Finds first occurrence of character (issue if multiple same characters exist)
+
 ---
 
 # CURRENT SESSION LEARNING LOG
@@ -150,6 +172,8 @@ Reach Dungeon Level 2 and save progress
 3. **Pet Utility**: Rex actively finds items and assists in combat
 4. **Room Distribution**: Multiple rooms accessible via ### corridor networks
 5. **Search Pattern**: Systematic exploration reveals more areas than expected
+6. **Hidden Passages**: Found multiple secret passages by recognizing wall discontinuities
+7. **New Areas**: Discovered northwestern treasure room and eastern room with additional gold
 
 ## What's Working Well
 - **Combat Strategy**: Valkyrie handles all enemies encountered easily
@@ -168,6 +192,9 @@ Reach Dungeon Level 2 and save progress
 3. **Pet Value**: Rex is extremely helpful - let pet assist actively
 4. **Search Frequency**: Use search command (`s`) more often, especially in rooms
 5. **Random Layouts**: Never assume previous dungeon maps apply to new games
+6. **Precise Position Analysis**: Always examine exact adjacent characters around `@` to avoid navigation errors
+7. **Map Pattern Recognition**: Look for protruding `#` symbols that indicate unexplored passages
+8. **Human Guidance**: Accept human tips about hidden passages and unexplored areas - they can spot patterns missed
 
 ---
 

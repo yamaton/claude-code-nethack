@@ -1,0 +1,7 @@
+#!/bin/bash
+# Wrapper script to extract 3x3 grid around player character
+# Usage: ./grid [player_char]
+# Default player_char is '@' if not specified
+
+PLAYER_CHAR=${1:-@}
+./run | python3 grid_extract.py "$PLAYER_CHAR"
