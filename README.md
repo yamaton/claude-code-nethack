@@ -97,7 +97,7 @@ Continue playing NetHack. Check documents in this project, then proceed with the
 ./run o h               # Open door to the west
 ./run s                 # Search for hidden features
 ./run ,                 # Pick up items
-./run >                 # Go down stairs (when found)
+./run '>'               # Go down stairs (when found)
 ```
 
 ### Strategy Reference
