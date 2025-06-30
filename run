@@ -2,6 +2,7 @@
 
 # --- Configuration ---
 SESSION_NAME="claude-nethack"
+NETHACK_OPTIONS_ENV="NETHACKOPTIONS=whatis_coord:m"
 NETHACK_COMMAND="nethack -u Claude -p valkyrie -r human"
 KEY_DELAY=0.1
 
@@ -52,8 +53,8 @@ fi
 # --- Session Management ---
 # Check if the tmux session exists. If not, create it and start NetHack.
 if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
-    echo "Creating new NetHack session: $SESSION_NAME"
-    tmux new-session -d -s "$SESSION_NAME" "$NETHACK_COMMAND"
+    echo "Creating a new tmux session: $SESSION_NAME"
+    tmux new-session -d -s "$SESSION_NAME" -e "$NETHACK_OPTIONS_ENV" "$NETHACK_COMMAND"
     sleep 1 # Give nethack time to load
 fi
 
