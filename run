@@ -4,7 +4,7 @@
 SESSION_NAME="claude-nethack"
 NETHACK_OPTIONS_ENV="NETHACKOPTIONS=whatis_coord:m"
 NETHACK_COMMAND="nethack -u Claude -p valkyrie -r human"
-KEY_DELAY=0.1
+KEY_DELAY=0.3
 
 
 # Show help information
@@ -20,17 +20,22 @@ USAGE:
 
 EXAMPLES:
     ./run                        View current game state
-    ./run h j k l                Move west, south, north, east
+    ./run Escape                 Enter Escape key (to cancel)
+    ./run Space                  Enter Space key (to proceed)
+    ./run h j                    Move west, then to south
     ./run o h                    Open door to the west
     ./run s                      Search for hidden doors/passages
     ./run ,                      Pick up items
-    ./run 5j                     Move south 5 times
+    ./run 5k                     Move north 5 times
 
 NETHACK SYMBOLS:
-    @    Claude's position       >    Stairs down (goal!)
-    f    Pet (Rex)              <    Stairs up
-    #    Corridors               +    Closed doors
-    $    Gold/treasure           %    Enemy corpses
+    @    Claude's position
+    >    Stairs down (goal!)
+    <    Stairs up
+    #    Corridors
+    +    Closed doors
+    $    Gold/treasure
+    %    Enemy corpses
 
 For more information, see README.md and CLAUDE.md
 
