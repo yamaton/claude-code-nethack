@@ -61,6 +61,9 @@ if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     echo "Creating a new tmux session: $SESSION_NAME"
     tmux new-session -d -s "$SESSION_NAME" -e "$NETHACK_OPTIONS_ENV" "$NETHACK_COMMAND"
     sleep 1 # Give nethack time to load
+
+    # needs this when resuming the game
+    tmux send-keys -t "$SESSION_NAME" -- Space
 fi
 
 # --- Action and State Capture ---
