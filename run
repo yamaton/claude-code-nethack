@@ -53,13 +53,14 @@ fi
 # Add session cleanup option
 if [ "$1" = "--init" ]; then
     tmux kill-session -t "$SESSION_NAME" 2>/dev/null
+    sleep 0.2
 fi
 
 # --- Session Management ---
 # Check if the tmux session exists. If not, create it and start NetHack.
 if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     echo "Creating a new tmux session: $SESSION_NAME"
-    tmux new-session -d -s "$SESSION_NAME" -e "$NETHACK_OPTIONS_ENV" "$NETHACK_COMMAND"
+    tmux new-session -d -s "$SESSION_NAME" -e "$NETHACK_OPTIONS_ENV" -- "$NETHACK_COMMAND"
     sleep 1 # Give nethack time to load
 
     # needs this when resuming the game
