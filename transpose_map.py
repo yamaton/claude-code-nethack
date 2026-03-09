@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
-"""Extract the map region from NetHack screen output and print its transpose.
+"""Format NetHack screen output for LLM consumption.
 
-In the original map: left-right = West-East, top-bottom = North-South.
-In the transposed map: left-right = North-South, top-bottom = West-East.
-
-This helps LLMs recognize vertical (N/S) neighbors by placing them
-on the same row, where token-level adjacency makes recognition easy.
+Processes raw tmux capture output into:
+1. Map area (left 80 columns) with blank lines squeezed
+2. Transposed map (N-S becomes left-right) with wall chars swapped
+3. Neighborhood of @ (5x5 grid + labeled 3x3)
+4. Overlay text (inventory, menus from right of column 80)
 """
 
 import sys
 
 MAP_WIDTH = 80
-
 
 STATUS_MARKERS = ["Dlvl:", "HP:", "Pw:", "AC:", "Xp:"]
 
@@ -32,24 +31,49 @@ def is_map_line(line):
     return has_wall or has_corridor or has_player or has_stairs
 
 
-def extract_map(lines):
-    """Return the contiguous map region as a list of strings.
+def split_output(lines):
+    """Split each line into map area (left) and overlay text (right).
 
-    Lines are clipped to MAP_WIDTH characters to exclude any overlay text
-    (inventory, menus) that NetHack renders to the right of the map area.
+    Returns (map_area_lines, overlay_lines) where overlay_lines contains
+    only non-empty text found beyond MAP_WIDTH.
     """
+    map_area = []
+    overlay = []
+    for line in lines:
+        map_area.append(line[:MAP_WIDTH].rstrip())
+        right = line[MAP_WIDTH:].strip()
+        if right:
+            overlay.append(right)
+    return map_area, overlay
+
+
+def squeeze_blanks(lines):
+    """Collapse consecutive blank lines into a single blank line."""
+    result = []
+    prev_blank = False
+    for line in lines:
+        is_blank = not line.strip()
+        if is_blank and prev_blank:
+            continue
+        result.append(line)
+        prev_blank = is_blank
+    return result
+
+
+def extract_map(lines):
+    """Return the contiguous map region as a list of strings."""
     first = None
     last = None
     for i, line in enumerate(lines):
         if is_status_line(line):
             continue
-        if is_map_line(line[:MAP_WIDTH]):
+        if is_map_line(line):
             if first is None:
                 first = i
             last = i
     if first is None:
         return []
-    return [line[:MAP_WIDTH].rstrip() for line in lines[first : last + 1]]
+    return lines[first : last + 1]
 
 
 WALL_SWAP = str.maketrans("|-", "-|")
@@ -69,7 +93,6 @@ def transpose(map_lines):
     for col in range(max_len):
         row = "".join(padded[r][col] for r in range(len(padded)))
         result.append(row.rstrip().translate(WALL_SWAP))
-    # Trim empty lines from ends
     while result and not result[-1].strip():
         result.pop()
     while result and not result[0].strip():
@@ -99,7 +122,6 @@ def print_neighborhood(map_lines):
     if pos is None:
         return
     pr, pc = pos
-    # 5x5 visual grid
     print("--- Neighborhood of @ ---")
     for dr in range(-2, 3):
         cells = " ".join(cell_at(map_lines, pr + dr, pc + dc) for dc in range(-2, 3))
@@ -107,7 +129,6 @@ def print_neighborhood(map_lines):
             print(f"W {cells} E")
         else:
             print(f"  {cells}")
-    # Labeled 3x3
     labels = [
         ("NW", -1, -1), ("N", -1, 0), ("NE", -1, 1),
         ("W", 0, -1), ("E", 0, 1),
@@ -117,17 +138,28 @@ def print_neighborhood(map_lines):
 
 
 def main():
-    lines = sys.stdin.read().splitlines()
-    map_lines = extract_map(lines)
-    pos = find_player(map_lines) if map_lines else None
-    if not map_lines or pos is None:
-        return
-    transposed = transpose(map_lines)
-    if transposed:
-        print("--- Transposed Map (left-right = N-S, top-bottom = W-E) ---")
-        for line in transposed:
+    raw_lines = sys.stdin.read().splitlines()
+    map_area, overlay = split_output(raw_lines)
+
+    # 1. Print map area with squeezed blank lines
+    for line in squeeze_blanks(map_area):
+        print(line)
+
+    # 2-3. Transpose + neighborhood (only when @ is visible)
+    extracted = extract_map(map_area)
+    if extracted and find_player(extracted):
+        transposed = transpose(extracted)
+        if transposed:
+            print("--- Transposed Map (left-right = N-S, top-bottom = W-E) ---")
+            for line in transposed:
+                print(line)
+        print_neighborhood(extracted)
+
+    # 4. Overlay text (inventory, menus, etc.)
+    if overlay:
+        print("--- Text Panel ---")
+        for line in overlay:
             print(line)
-    print_neighborhood(map_lines)
 
 
 if __name__ == "__main__":
