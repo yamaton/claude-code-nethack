@@ -20,15 +20,15 @@ NetHack is a classic roguelike dungeon crawler that requires strategic thinking,
   - Manages persistent tmux sessions
   - Sends commands with configurable delays
   - Captures clean ASCII output without escape sequences
+  - Appends a transposed map view after the original output
   - Supports session cleanup and initialization
+- **`transpose_map.py`** - Map transposition tool for improved spatial awareness
+  - Extracts the map region from NetHack screen output
+  - Transposes it so that North-South axis becomes left-right (readable on a single line)
+  - Helps LLMs identify vertical neighbors that are hard to read across rows
 
 ### Documentation
-- **`CLAUDE.md`** - Comprehensive strategy scrapbook
-  - Mission objectives and progress tracking
-  - Detailed exploration logs with move-by-move analysis
-  - Combat encounters and tactical lessons learned
-  - Map discoveries and dungeon layout documentation
-  - Character development and class optimization notes
+- **`CLAUDE.md`** - Gameplay instructions and NetHack knowledge base for Claude
 
 
 ## Current Mission
@@ -52,6 +52,7 @@ NetHack is a classic roguelike dungeon crawler that requires strategic thinking,
 ### Technical Implementation
 - **Session persistence**: Games survive between command sessions
 - **Clean output**: Monochrome ASCII without terminal escape sequences
+- **Transposed map**: Rotated map view appended to output, turning vertical (N/S) neighbors into horizontal ones that LLMs can read on a single line
 - **Command batching**: Multiple moves can be sent sequentially
 - **Error handling**: Robust session management with cleanup options
 
