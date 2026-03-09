@@ -10,6 +10,8 @@ on the same row, where token-level adjacency makes recognition easy.
 
 import sys
 
+MAP_WIDTH = 80
+
 
 STATUS_MARKERS = ["Dlvl:", "HP:", "Pw:", "AC:", "Xp:"]
 
@@ -31,19 +33,23 @@ def is_map_line(line):
 
 
 def extract_map(lines):
-    """Return the contiguous map region as a list of strings."""
+    """Return the contiguous map region as a list of strings.
+
+    Lines are clipped to MAP_WIDTH characters to exclude any overlay text
+    (inventory, menus) that NetHack renders to the right of the map area.
+    """
     first = None
     last = None
     for i, line in enumerate(lines):
         if is_status_line(line):
             continue
-        if is_map_line(line):
+        if is_map_line(line[:MAP_WIDTH]):
             if first is None:
                 first = i
             last = i
     if first is None:
         return []
-    return lines[first : last + 1]
+    return [line[:MAP_WIDTH].rstrip() for line in lines[first : last + 1]]
 
 
 def transpose(map_lines):
@@ -64,10 +70,15 @@ def transpose(map_lines):
     return result
 
 
+def has_player(map_lines):
+    """Check if @ (player) is visible in the map region."""
+    return any("@" in line for line in map_lines)
+
+
 def main():
     lines = sys.stdin.read().splitlines()
     map_lines = extract_map(lines)
-    if not map_lines:
+    if not map_lines or not has_player(map_lines):
         return
     transposed = transpose(map_lines)
     if not transposed:

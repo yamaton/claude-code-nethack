@@ -84,5 +84,5 @@ sleep 0.2
 # Capture the pane's content and print it to stdout (without ANSI escape sequences).
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 OUTPUT=$(tmux capture-pane -p -t "$SESSION_NAME")
-echo "$OUTPUT"
+echo "$OUTPUT" | cat -s
 echo "$OUTPUT" | python3 "$SCRIPT_DIR/transpose_map.py"
