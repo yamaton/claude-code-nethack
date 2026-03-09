@@ -77,22 +77,57 @@ def transpose(map_lines):
     return result
 
 
-def has_player(map_lines):
-    """Check if @ (player) is visible in the map region."""
-    return any("@" in line for line in map_lines)
+def find_player(map_lines):
+    """Find the (row, col) position of @ in the map, or None."""
+    for r, line in enumerate(map_lines):
+        c = line.find("@")
+        if c != -1:
+            return r, c
+    return None
+
+
+def cell_at(map_lines, r, c):
+    """Get the character at (r, c), or space if out of bounds."""
+    if 0 <= r < len(map_lines) and 0 <= c < len(map_lines[r]):
+        return map_lines[r][c]
+    return " "
+
+
+def print_neighborhood(map_lines):
+    """Print a 5x5 grid around @ and label the 8 adjacent cells."""
+    pos = find_player(map_lines)
+    if pos is None:
+        return
+    pr, pc = pos
+    # 5x5 visual grid
+    print("--- Neighborhood of @ ---")
+    for dr in range(-2, 3):
+        cells = " ".join(cell_at(map_lines, pr + dr, pc + dc) for dc in range(-2, 3))
+        if dr == 0:
+            print(f"W {cells} E")
+        else:
+            print(f"  {cells}")
+    # Labeled 3x3
+    labels = [
+        ("NW", -1, -1), ("N", -1, 0), ("NE", -1, 1),
+        ("W", 0, -1), ("E", 0, 1),
+        ("SW", 1, -1), ("S", 1, 0), ("SE", 1, 1),
+    ]
+    print(" ".join(f"{d}={cell_at(map_lines, pr+dr, pc+dc)}" for d, dr, dc in labels))
 
 
 def main():
     lines = sys.stdin.read().splitlines()
     map_lines = extract_map(lines)
-    if not map_lines or not has_player(map_lines):
+    pos = find_player(map_lines) if map_lines else None
+    if not map_lines or pos is None:
         return
     transposed = transpose(map_lines)
-    if not transposed:
-        return
-    print("--- Transposed Map (left-right = N-S, top-bottom = W-E) ---")
-    for line in transposed:
-        print(line)
+    if transposed:
+        print("--- Transposed Map (left-right = N-S, top-bottom = W-E) ---")
+        for line in transposed:
+            print(line)
+    print_neighborhood(map_lines)
 
 
 if __name__ == "__main__":

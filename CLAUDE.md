@@ -16,19 +16,18 @@ pick `v` (Valkyrie), `h` (human), `l` (lawful), `y` (confirm).
 The `-p valkyrie` flag in the script does NOT work reliably.
 
 ### Output Format
-`./run` prints two things:
+`./run` prints three things when the game map is visible:
 1. **Original map** — standard NetHack ASCII display + status bar
-2. **Transposed map** — the map rotated 90 degrees (see below)
+2. **Transposed map** — the map rotated 90 degrees, with wall characters swapped (`\|` <-> `-`) so walls look natural in both views
+3. **Neighborhood of @** — a 5x5 visual grid around `@` plus a labeled line listing all 8 adjacent cells (e.g. `NW=. N=< NE=\| W=. E=. SW=. S=. SE=.`)
 
-### Reading the Transposed Map
-LLMs read text left-to-right within a row far better than they read vertically across rows. The transposed map swaps rows and columns so that:
-- **Left-to-right** in each transposed row = **North-to-South** in the original
-- **Top-to-bottom** across transposed rows = **West-to-East** in the original
+When the screen shows text (inventory, `/` query results), the transpose and neighborhood are suppressed.
 
-To identify the 8-cell neighborhood of `@`:
-- **W and E**: read directly from the original map (same row as `@`)
-- **N and S**: read from the transposed map (same row as `@`, left=N, right=S)
-- **Diagonals**: cross-reference adjacent rows in the transposed map at the N/S offsets
+### Reading the Output
+- **Neighborhood line**: the quickest way to check adjacent cells — read `NW=` `N=` `NE=` etc. directly
+- **5x5 grid**: for slightly wider spatial context (2 cells in each direction)
+- **Transposed map**: for full-map N/S awareness (left-right = N-S, top-bottom = W-E)
+- **Original map**: for full-map W/E awareness and overall layout
 
 ### Key Commands
 - `h j k l` — move W/S/N/E
