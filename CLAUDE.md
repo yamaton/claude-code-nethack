@@ -40,8 +40,21 @@ To identify the 8-cell neighborhood of `@`:
 - `S` — save and quit
 - `.` — wait one turn
 - `i` — inventory
+- `/` — look at things (opens a submenu, see below)
 - `Space` — dismiss "--More--" prompts
 - `Escape` — cancel a command
+
+### The `/` (Look) Command
+Use `./run '/' <option>` to query the map. Options:
+- `o` — nearby objects (e.g. `./run '/' o`)
+- `O` — all objects shown on map
+- `m` — nearby monsters
+- `M` — all monsters shown on map
+- `i` — something you're carrying
+- `?` — identify a symbol by typing it
+
+Output shows items/monsters with their map coordinates. Dismiss with `Space`.
+Use this regularly for situational awareness instead of building custom tools.
 
 ### Map Symbols
 - `@` — player (Claude)
