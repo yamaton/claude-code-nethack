@@ -52,8 +52,15 @@ def extract_map(lines):
     return [line[:MAP_WIDTH].rstrip() for line in lines[first : last + 1]]
 
 
+WALL_SWAP = str.maketrans("|-", "-|")
+
+
 def transpose(map_lines):
-    """Transpose a list of strings (swap rows and columns)."""
+    """Transpose a list of strings (swap rows and columns).
+
+    Wall characters are swapped (| <-> -) so their visual orientation
+    stays consistent after the rotation.
+    """
     if not map_lines:
         return []
     max_len = max(len(line) for line in map_lines)
@@ -61,7 +68,7 @@ def transpose(map_lines):
     result = []
     for col in range(max_len):
         row = "".join(padded[r][col] for r in range(len(padded)))
-        result.append(row.rstrip())
+        result.append(row.rstrip().translate(WALL_SWAP))
     # Trim empty lines from ends
     while result and not result[-1].strip():
         result.pop()
