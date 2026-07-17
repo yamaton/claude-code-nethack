@@ -16,18 +16,16 @@ pick `v` (Valkyrie), `h` (human), `l` (lawful), `y` (confirm).
 The `-p valkyrie` flag in the script does NOT work reliably.
 
 ### Output Format
-`./run` prints three things when the game map is visible:
+`./run` prints two things when the game map is visible:
 1. **Original map** — standard NetHack ASCII display + status bar
-2. **Transposed map** — the map rotated 90 degrees, with wall characters swapped (`\|` <-> `-`) so walls look natural in both views
-3. **Neighborhood of @** — a 5x5 visual grid around `@` plus a labeled line listing all 8 adjacent cells (e.g. `NW=. N=< NE=\| W=. E=. SW=. S=. SE=.`)
+2. **Neighborhood of @** — a 5x5 visual grid around `@` plus a labeled line listing all 8 adjacent cells (e.g. `NW=. N=< NE=\| W=. E=. SW=. S=. SE=.`)
 
-When the screen shows text (inventory, `/` query results), the transpose and neighborhood are suppressed.
+When the screen shows text (inventory, `/` query results), the neighborhood is suppressed.
 
 ### Reading the Output
 - **Neighborhood line**: the quickest way to check adjacent cells — read `NW=` `N=` `NE=` etc. directly
 - **5x5 grid**: for slightly wider spatial context (2 cells in each direction)
-- **Transposed map**: for full-map N/S awareness (left-right = N-S, top-bottom = W-E)
-- **Original map**: for full-map W/E awareness and overall layout
+- **Original map**: for full-map W/E and N/S awareness and overall layout
 
 ### Key Commands
 - `h j k l` — move W/S/N/E

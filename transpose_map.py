@@ -3,9 +3,8 @@
 
 Processes raw tmux capture output into:
 1. Map area (left 80 columns) with blank lines squeezed
-2. Transposed map (N-S becomes left-right) with wall chars swapped
-3. Neighborhood of @ (5x5 grid + labeled 3x3)
-4. Overlay text (inventory, menus from right of column 80)
+2. Neighborhood of @ (5x5 grid + labeled 3x3)
+3. Overlay text (inventory, menus from right of column 80)
 """
 
 import sys
@@ -76,30 +75,6 @@ def extract_map(lines):
     return lines[first : last + 1]
 
 
-WALL_SWAP = str.maketrans("|-", "-|")
-
-
-def transpose(map_lines):
-    """Transpose a list of strings (swap rows and columns).
-
-    Wall characters are swapped (| <-> -) so their visual orientation
-    stays consistent after the rotation.
-    """
-    if not map_lines:
-        return []
-    max_len = max(len(line) for line in map_lines)
-    padded = [line.ljust(max_len) for line in map_lines]
-    result = []
-    for col in range(max_len):
-        row = "".join(padded[r][col] for r in range(len(padded)))
-        result.append(row.rstrip().translate(WALL_SWAP))
-    while result and not result[-1].strip():
-        result.pop()
-    while result and not result[0].strip():
-        result.pop(0)
-    return result
-
-
 def find_player(map_lines):
     """Find the (row, col) position of @ in the map, or None."""
     for r, line in enumerate(map_lines):
@@ -145,17 +120,12 @@ def main():
     for line in squeeze_blanks(map_area):
         print(line)
 
-    # 2-3. Transpose + neighborhood (only when @ is visible)
+    # 2. Neighborhood (only when @ is visible)
     extracted = extract_map(map_area)
     if extracted and find_player(extracted):
-        transposed = transpose(extracted)
-        if transposed:
-            print("--- Transposed Map (left-right = N-S, top-bottom = W-E) ---")
-            for line in transposed:
-                print(line)
         print_neighborhood(extracted)
 
-    # 4. Overlay text (inventory, menus, etc.)
+    # 3. Overlay text (inventory, menus, etc.)
     if overlay:
         print("--- Text Panel ---")
         for line in overlay:
