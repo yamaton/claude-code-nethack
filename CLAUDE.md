@@ -38,6 +38,7 @@ When the screen shows text (inventory, `/` query results), the neighborhood is s
 - `.` — wait one turn
 - `i` — inventory
 - `/` — look at things (opens a submenu, see below)
+- `#name` — extended command, e.g. `./run '#quit'` (Enter is sent automatically)
 - `Space` — dismiss "--More--" prompts
 - `Escape` — cancel a command
 
