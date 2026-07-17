@@ -41,6 +41,8 @@ movement keys until you close it with `Space` or `Escape`.
 - `i` — inventory
 - `/` — look at things (opens a submenu, see below)
 - `#name` — extended command, e.g. `./run '#quit'` (Enter is sent automatically)
+- `^P` — message history, one message back per press: `./run '^P'` or `./run C-p`
+  (use after batched moves to catch messages that scrolled by, e.g. what hit you)
 - `Space` — dismiss "--More--" prompts
 - `Escape` — cancel a command
 

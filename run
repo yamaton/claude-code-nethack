@@ -31,6 +31,14 @@ send_input() {
         tmux send-keys -t "$SESSION_NAME" Escape
         return
     fi
+    # Ctrl key combos, written 'C-x' or '^x' (letter, either case). These must
+    # use send-keys like Escape above: paste-buffer mangles control bytes into
+    # two printable caret-notation characters (0x10 becomes '^' 'P'), so the
+    # game never sees the real control byte.
+    if [[ "$key" =~ ^(C-|\^)([A-Za-z])$ ]]; then
+        tmux send-keys -t "$SESSION_NAME" "C-${BASH_REMATCH[2],,}"
+        return
+    fi
     case "$key" in
         Space)        literal=' ' ;;
         Enter|Return) literal=$'\r' ;;
@@ -63,6 +71,7 @@ EXAMPLES:
     ./run ,                      Pick up items
     ./run 5k                     Move north 5 times
     ./run '#quit'                Extended command (Enter is sent automatically)
+    ./run '^P'                   Ctrl+P: view message history (C-p also works)
 
 NETHACK SYMBOLS:
     @    Claude's position

@@ -99,6 +99,7 @@ Continue playing NetHack. Check documents in this project, then proceed with the
 ./run ,                 # Pick up items
 ./run '>'               # Go down stairs (when found)
 ./run '#quit'           # Extended command (Enter is sent automatically)
+./run '^P'              # Ctrl+P: view recent messages (C-p also works)
 ```
 
 ### Strategy Reference
