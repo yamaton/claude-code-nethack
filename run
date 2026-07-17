@@ -6,6 +6,24 @@ NETHACK_OPTIONS_ENV="NETHACKOPTIONS=whatis_coord:m"
 NETHACK_COMMAND="nethack -u Claude -p valkyrie -r human"
 KEY_DELAY=0.3
 
+# Send input by pasting a buffer into the pane instead of send-keys:
+# since tmux 3.7, send-keys is refused with "client is read-only" when the
+# only attached client is a read-only viewer (tmux attach -r), while
+# paste-buffer goes straight to the pane. Pasting takes literal characters,
+# so named keys must be translated.
+send_input() {
+    local key="$1" literal
+    case "$key" in
+        Space)        literal=' ' ;;
+        Escape)       literal=$'\e' ;;
+        Enter|Return) literal=$'\r' ;;
+        Tab)          literal=$'\t' ;;
+        *)            literal="$key" ;;
+    esac
+    tmux set-buffer -b claude-run-input -- "$literal"
+    tmux paste-buffer -d -b claude-run-input -t "$SESSION_NAME"
+}
+
 
 # Show help information
 if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
@@ -64,7 +82,7 @@ if ! tmux has-session -t "$SESSION_NAME" 2>/dev/null; then
     sleep 1 # Give nethack time to load
 
     # needs this when resuming the game
-    tmux send-keys -t "$SESSION_NAME" -- Space
+    send_input Space
 fi
 
 # --- Action and State Capture ---
@@ -73,7 +91,7 @@ fi
 # This allows us to send them one by one with a delay in between.
 for arg in "$@"; do
     # Send the current argument (e.g., 'd', then 'a').
-    tmux send-keys -t "$SESSION_NAME" -- "$arg"
+    send_input "$arg"
     # Wait for a short moment to let NetHack process the keystroke.
     sleep "$KEY_DELAY"
 done
