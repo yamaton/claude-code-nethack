@@ -142,7 +142,7 @@ def main():
 
     # 3. Overlay text (inventory, menus, etc.)
     if overlay:
-        print("--- Text Panel ---")
+        print("--- Text Panel (modal: send Space/Escape to close it BEFORE moving) ---")
         for line in overlay:
             print(line)
 

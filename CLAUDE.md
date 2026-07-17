@@ -21,6 +21,8 @@ The `-p valkyrie` flag in the script does NOT work reliably.
 2. **Neighborhood of @** — a 5x5 visual grid around `@` plus a labeled line listing all 8 adjacent cells (e.g. `NW=. N=< NE=\| W=. E=. SW=. S=. SE=.`)
 
 When the screen shows text (inventory, `/` query results), the neighborhood is suppressed.
+A `--- Text Panel ---` section means a modal menu/pager is open: the game ignores
+movement keys until you close it with `Space` or `Escape`.
 
 ### Reading the Output
 - **Neighborhood line**: the quickest way to check adjacent cells — read `NW=` `N=` `NE=` etc. directly
