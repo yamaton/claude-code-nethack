@@ -80,6 +80,11 @@ fi
 if [ "$1" = "--init" ]; then
     tmux kill-session -t "$SESSION_NAME" 2>/dev/null
     sleep 0.2
+    # Without this shift, "--init" stays in "$@" and falls through to the
+    # action loop below, which sends it as literal keystrokes to the fresh
+    # session: '-' '-' 'i' 'n' 'i' 't'. On the role-selection menu, 't'
+    # selects Tourist; mid-game, 'i' opens inventory and 't' triggers throw.
+    shift
 fi
 
 # --- Session Management ---
