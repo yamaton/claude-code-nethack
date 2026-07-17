@@ -7,9 +7,12 @@ Processes raw tmux capture output into:
 3. Overlay text (inventory, menus from right of column 80)
 """
 
+import re
 import sys
 
 MAP_WIDTH = 80
+
+GAP_RE = re.compile(r" {2,}")
 
 STATUS_MARKERS = ["Dlvl:", "HP:", "Pw:", "AC:", "Xp:"]
 
@@ -33,14 +36,26 @@ def is_map_line(line):
 def split_output(lines):
     """Split each line into map area (left) and overlay text (right).
 
+    NetHack's dungeon map never extends past MAP_WIDTH, so anything beyond
+    it is a menu/status overlay. Popup boxes are sometimes positioned a few
+    columns before MAP_WIDTH, though, so a straight cut there can slice a
+    menu word in half (e.g. "Coins" -> "Co" + "ins"). Instead, split at the
+    start of the rightmost run of 2+ spaces that ends at or before
+    MAP_WIDTH, which is the actual gap between map content and the overlay.
+
     Returns (map_area_lines, overlay_lines) where overlay_lines contains
-    only non-empty text found beyond MAP_WIDTH.
+    only non-empty text found beyond the split point.
     """
     map_area = []
     overlay = []
     for line in lines:
-        map_area.append(line[:MAP_WIDTH].rstrip())
-        right = line[MAP_WIDTH:].strip()
+        split_at = MAP_WIDTH
+        if len(line) > MAP_WIDTH:
+            gap_ends = [m.end() for m in GAP_RE.finditer(line) if m.end() <= MAP_WIDTH]
+            if gap_ends:
+                split_at = max(gap_ends)
+        map_area.append(line[:split_at].rstrip())
+        right = line[split_at:].strip()
         if right:
             overlay.append(right)
     return map_area, overlay
