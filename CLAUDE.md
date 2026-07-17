@@ -87,6 +87,8 @@ Use this regularly for situational awareness instead of building custom tools.
 - Explore systematically: clear each room, follow every corridor
 - Use `s` (search) repeatedly near walls to find hidden doors/passages
 - Look for wall discontinuities (`.` symbols breaking `---` patterns)
+- Open doors render as `-` or `|` (matching passage direction), nearly identical
+  to wall glyphs in monochrome — scrutinize walls for out-of-place characters
 - Small starting rooms often have hidden exits — search all walls
 
 ### Combat
