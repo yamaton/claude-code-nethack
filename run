@@ -19,11 +19,20 @@ KEY_DELAY=0.3
 # only attached client is a read-only viewer (tmux attach -r), while
 # paste-buffer goes straight to the pane. Pasting takes literal characters,
 # so named keys must be translated.
+#
+# Escape is the one key that can't go through paste-buffer: tmux mangles a
+# lone ESC byte (0x1b) in a pasted buffer into the two-character literal
+# text "^[" instead of delivering the real control byte, so NetHack never
+# sees an actual Escape keypress. send-keys delivers a genuine ESC, at the
+# cost of failing if a read-only client is attached (see above).
 send_input() {
     local key="$1" literal
+    if [ "$key" = "Escape" ]; then
+        tmux send-keys -t "$SESSION_NAME" Escape
+        return
+    fi
     case "$key" in
         Space)        literal=' ' ;;
-        Escape)       literal=$'\e' ;;
         Enter|Return) literal=$'\r' ;;
         Tab)          literal=$'\t' ;;
         *)            literal="$key" ;;
